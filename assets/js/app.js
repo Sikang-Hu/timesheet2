@@ -11,7 +11,13 @@ import css from "../css/app.scss"
 //
 import "phoenix_html"
 
+import init_page from './page';
+
 // Import local files
 //
 // Local files can be imported directly using relative paths, for example:
 // import socket from "./socket"
+window.addEventListener("load", () => {
+  let root = document.getElementById('root');
+  init_page(root);
+});
