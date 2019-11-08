@@ -2,7 +2,7 @@ import store from './store';
 
 export function post(path, body) {
   let state = store.getState();
-  let token = state.session ? state.session.token : null;
+  let token = state.session != null ? state.session.token : null;
 
   return fetch('/ajax' + path, {
     method: 'post',
@@ -19,7 +19,7 @@ export function post(path, body) {
 
 export function get(path) {
   let state = store.getState();
-  let token = state.session ? state.session.token : null;
+  let token = state.session != null ? state.session.token : null;
 
   return fetch('/ajax' + path, {
     method: 'get',
