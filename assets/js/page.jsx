@@ -59,42 +59,42 @@ function Page(props) {
   );
 }
 
-function Session(props) {
-  return (
-    <div></div>
+// function Session(props) {
+//   return (
+//     <div></div>
+//     );
+// }
+
+let Session = connect(({session}) => ({session}))(({session, dispatch}) => {
+  function logout(ev) {
+    ev.preventDefault();
+    localStorage.removeItem('session');
+    dispatch({
+      type: 'LOG_OUT',
+    });
+  }
+
+  if (session) {
+    return (
+      <Nav>
+        <Nav.Item>
+          <p className="text-light py-2">User: {session.user_name}</p>
+        </Nav.Item>
+        <Nav.Item>
+          <a className="nav-link" href="#" onClick={logout}>Logout</a>
+        </Nav.Item>
+      </Nav>
     );
-}
-
-// let Session = connect(({session}) => ({session}))(({session, dispatch}) => {
-//   function logout(ev) {
-//     ev.preventDefault();
-//     localStorage.removeItem('session');
-//     dispatch({
-//       type: 'LOG_OUT',
-//     });
-//   }
-
-//   if (session) {
-//     return (
-//       <Nav>
-//         <Nav.Item>
-//           <p className="text-light py-2">User: {session.user_name}</p>
-//         </Nav.Item>
-//         <Nav.Item>
-//           <a className="nav-link" href="#" onClick={logout}>Logout</a>
-//         </Nav.Item>
-//       </Nav>
-//     );
-//   }
-//   else {
-//     return (
-//       <Nav>
-//         <Nav.Item>
-//           <NavLink to="/login" exact activeClassName="active" className="nav-link">
-//             Login
-//           </NavLink>
-//         </Nav.Item>
-//       </Nav>
-//     );
-//   }
-// });
+  }
+  else {
+    return (
+      <Nav>
+        <Nav.Item>
+          <NavLink to="/login" exact activeClassName="active" className="nav-link">
+            Login
+          </NavLink>
+        </Nav.Item>
+      </Nav>
+    );
+  }
+});
