@@ -2,9 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route, NavLink, Link } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
+import { Provider, connect } from 'react-redux';
+import store from './store';
 import SheetsNew from './sheets/new';
 
+
 export default function init_page(root) {
+  let tree = (
+    <Provider store={store}>
+      <Page />
+    </Provider>
+    );
   ReactDOM.render(<Page />, root);
 }
 
