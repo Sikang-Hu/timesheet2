@@ -16,7 +16,7 @@ export default function init_page(root) {
       <Page />
     </Provider>
     );
-  ReactDOM.render(<Page />, root);
+  ReactDOM.render(tree, root);
 }
 
 function Page(props) {
