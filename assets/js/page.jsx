@@ -31,6 +31,11 @@ function Page(props) {
               </NavLink>
             </Nav.Item>
             <Nav.Item>
+              <NavLink to="/sheets" exact activeClassName="active" className="nav-link">
+                All Timesheets
+              </NavLink>
+            </Nav.Item>
+            <Nav.Item>
               <NavLink to="/sheets/new" exact activeClassName="active" className="nav-link">
                 New Timesheet
               </NavLink>
@@ -43,11 +48,15 @@ function Page(props) {
       </Navbar>
       <Switch>
         <Route exact path="/">
-          <h1>Home</h1>
+          <h1>Welcome to Timesheet</h1>
         </Route>
 
 
         <Route exact path="/sheets/new">
+          <SheetsNew />
+        </Route>
+
+        <Route exact path="/sheets">
           <SheetsNew />
         </Route>
 
