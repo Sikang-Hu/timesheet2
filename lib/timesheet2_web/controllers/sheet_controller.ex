@@ -6,6 +6,8 @@ defmodule Timesheet2Web.SheetController do
 
   action_fallback Timesheet2Web.FallbackController
 
+  plug Timesheet2Web.Plugs.RequireAuth when action in [:create]
+
   def index(conn, _params) do
     sheets = Sheets.list_sheets()
     render(conn, "index.json", sheets: sheets)

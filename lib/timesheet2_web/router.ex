@@ -27,6 +27,7 @@ defmodule Timesheet2Web.Router do
     resources "/sheets", SheetController, except: [:new, :edit]
     resources "/tasks", TaskController, except: [:new, :edit]
     resources "/jobs", JobController, except: [:new, :edit]
+    resources "/sessions", SessionController, only: [:create], singleton: true
   end
 
   scope "/", Timesheet2Web do
