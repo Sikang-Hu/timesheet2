@@ -41,7 +41,7 @@ function Page(props) {
         </Route>
 
         <Route exact path="/sheets/new">
-          <h1>SheetsNew</h1>
+          <SheetsNew />
         </Route>
       </Switch>
     </Router>
