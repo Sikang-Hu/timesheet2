@@ -16,6 +16,7 @@ function login(st0 = {email: "", password: "", errors: null}, action) {
 function new_sheet(st0 = {date: null, tasks: [], errors: null}, action) {
   switch (action.type) {
     case 'CHANGE_NEW_SHEET':
+      console.log("change new sheet", st0)
       return Object.assign({}, st0, action.data);
     default:
       return st0;
