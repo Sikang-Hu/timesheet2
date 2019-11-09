@@ -5,6 +5,8 @@ import { Navbar, Nav, Col } from 'react-bootstrap';
 import { Provider, connect } from 'react-redux';
 
 import SheetsNew from './sheets/new';
+import SheetsShow from './sheets/show';
+import SheetsList from './sheets/index';
 import Login from './login';
 
 import store from './store';
@@ -57,8 +59,13 @@ function Page(props) {
         </Route>
 
         <Route exact path="/sheets">
-          <SheetsNew />
+          <Index />
         </Route>
+
+        <Route exact path="/sheets/:id" render={
+          (props) =>
+            <SheetsShow id={props.match.params.id} />
+        } />
 
         <Route exact path="/login">
           <Login />

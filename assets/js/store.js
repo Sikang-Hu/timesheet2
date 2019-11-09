@@ -13,9 +13,19 @@ function login(st0 = {email: "", password: "", errors: null}, action) {
   }
 }
 
+function new_sheet(st0 = {date: null, tasks: [], errors: null}, action) {
+  switch (action.type) {
+    case 'CHANGE_NEW_SHEET':
+      return Object.assign({}, st0, action.data);
+    default:
+      return st0;
+  }
+}
+
 function forms(st0, action) {
   let reducer = combineReducers({
     login,
+    new_sheet
   });
   return reducer(st0, action);
 }
@@ -57,6 +67,7 @@ function root_reducer(st0, action) {
   console.log("root reducer", st0, action);
   let reducer = combineReducers({
   	forms,
+    sheets,
     session,
   });
   return deepFreeze(reducer(st0, action));

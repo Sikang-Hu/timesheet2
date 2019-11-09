@@ -56,3 +56,56 @@ export function submit_login(form) {
       }
     });
 }
+
+export function list_sheets() {
+  get('/sheets')
+    .then((resp) => {
+      console.log("list_sheets", resp);
+      store.dispatch({
+        type: 'ADD_SHEETS',
+        data: resp.data,
+      });
+    });
+}
+
+export function approve_sheet(id) {
+  let state = store.getState();
+  post('/sheets/approve', {id: id})
+    .then((resp) => {
+      console.log("approve_sheets", resp);
+      store.dispatch({
+        type: 'ADD_SHEETS',
+        data: [resp.data],
+      });
+    });
+}
+
+export function submit_new_sheet(form) {
+  let state = store.getState();
+  let data = state.forms.new_sheet;
+
+  if (data.date == null) {
+    return;
+  }
+
+  post("/sheets", {sheet: {
+    date: data.date,
+    tasks: data.tasks
+  }})
+    .then((resp) => {
+      console.log(resp);
+      if (resp.data) {
+        store.dispatch({
+          type: 'ADD_SHEETS',
+          data: [resp.data],
+        });
+        form.redirect('/sheets/' + resp.data.id);
+      }
+      else {
+        store.dispatch({
+          type: 'CHANGE_NEW_SHEET',
+          data: {errors: JSON.stringify(resp.errors)},
+        });
+      }
+    });
+}
