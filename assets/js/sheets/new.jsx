@@ -25,6 +25,7 @@ class SheetsNew extends React.Component {
   }
 
   changed(data) {
+    console.log(this.props);
     this.props.dispatch({
       type: 'CHANGE_NEW_SHEET',
       data: data,
@@ -38,7 +39,7 @@ class SheetsNew extends React.Component {
   }
 
   add_task() {
-    // if no tasks get the job code, 
+    
   }
 
   jobcode_changed(index, ev) {
