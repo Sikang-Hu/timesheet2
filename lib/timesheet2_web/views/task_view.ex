@@ -12,6 +12,7 @@ defmodule Timesheet2Web.TaskView do
 
   def render("task.json", %{task: task}) do
     %{id: task.id,
+      job_code: Timesheet2.Jobs.get_job!(task.job_id).job_code,
       note: task.note,
       spend_hours: task.spend_hours}
   end

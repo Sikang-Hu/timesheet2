@@ -55,6 +55,15 @@ defmodule Timesheet2.Jobs do
     |> Repo.insert()
   end
 
+  def get_job_id_by_jobcode(jobcode) do
+    Repo.get_by(Job, job_code: jobcode).id
+  end
+
+  def list_jobcodes do
+    query = from(j in Job, select: j.job_code)
+    Repo.all(query)
+  end
+
   @doc """
   Updates a job.
 

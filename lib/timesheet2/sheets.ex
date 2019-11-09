@@ -21,6 +21,23 @@ defmodule Timesheet2.Sheets do
     Repo.all(Sheet)
   end
 
+  def list_sheets_worker(id) do
+    query = from(s in Sheet, 
+      where: s.worker_id == ^id,
+      preload: [:worker, :tasks]
+      )
+    Repo.all(query)
+  end
+
+  def list_sheets_manager(id) do
+    workers = Timesheet2.Users.get_workers_id(id)
+    query = from(s in Sheet, 
+      where: s.worker_id in ^workers,
+      preload: [:worker, :tasks]
+      )
+    Repo.all(query)
+  end
+
   @doc """
   Gets a single sheet.
 
@@ -36,6 +53,14 @@ defmodule Timesheet2.Sheets do
 
   """
   def get_sheet!(id), do: Repo.get!(Sheet, id)
+
+  def get_sheet(id) do
+    query = from(s in Sheet, 
+      where: s.id == ^id,
+      preload: [:worker, :tasks]
+      )
+    Repo.one(query)
+  end
 
   @doc """
   Creates a sheet.

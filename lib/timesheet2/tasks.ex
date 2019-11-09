@@ -37,6 +37,14 @@ defmodule Timesheet2.Tasks do
   """
   def get_task!(id), do: Repo.get!(Task, id)
 
+  def get_tasks_by_sheet_id(id) do
+    query = from(t in Task, 
+      where: t.sheet_id == ^id,
+      preload: [:job]
+      )
+    Repo.all(query)
+  end
+
   @doc """
   Creates a task.
 
