@@ -58,6 +58,7 @@ class SheetsNew extends React.Component {
     let tasks = this.props.tasks.concat([]);
     if (tasks.length > 0) {
       tasks.splice(index, 1);
+      console.log(index, tasks);
     }
     this.changed({tasks: tasks});
   }
