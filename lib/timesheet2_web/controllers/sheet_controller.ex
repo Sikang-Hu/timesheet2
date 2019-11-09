@@ -37,41 +37,42 @@ defmodule Timesheet2Web.SheetController do
       |> send_resp(:not_acceptable, Jason.encode!(resp))
     else 
       user = conn.assigns[:current_user]
-      if user.manager_id do
-        with {:ok, %Sheet{} = sheet} <- Sheets.create_sheet(%{
-            worker_id: current_user.id, 
-            date: date,})
-          tasks |> Enum.each(fn task -> 
-            case Integer.parse(task["spend_hours"], 10) do
-              {i, _} -> 
-                if i > 0 do 
-                  n = if task["note"] == "" do
-                    "N/A"
-                  else
-                    task["note"]
-                  end
-                  Timesheet2.Tasks.create_task(%{
-                    spend_hours: i,
-                    note: n,
-                    job_id: Timesheet2.Jobs.get_job_id_by_jobcode(task["job_code"]),
-                    sheet_id: sheet.id
-                  })
-                end
-              :error -> nil
-            end
-           end)
-          sheet = Sheets.get_sheet(sheet.id)
-          conn
-          |> put_status(:created)
-          |> put_resp_header("location", Routes.sheet_path(conn, :show, sheet))
-          |> render("show.json", sheet: sheet)
-        end
-      else 
-        resp = %{errors: ["Not a worker!"]}
-        conn
-        |> put_resp_header("content-type", "application/json; charset=UTF-8")
-        |> send_resp(:not_acceptable, Jason.encode!(resp))
-      end
+      conn;
+      # if user.manager_id do
+      #   with {:ok, %Sheet{} = sheet} <- Sheets.create_sheet(%{
+      #       worker_id: current_user.id, 
+      #       date: date,})
+      #     tasks |> Enum.each(fn task -> 
+      #       case Integer.parse(task["spend_hours"], 10) do
+      #         {i, _} -> 
+      #           if i > 0 do 
+      #             n = if task["note"] == "" do
+      #               "N/A"
+      #             else
+      #               task["note"]
+      #             end
+      #             Timesheet2.Tasks.create_task(%{
+      #               spend_hours: i,
+      #               note: n,
+      #               job_id: Timesheet2.Jobs.get_job_id_by_jobcode(task["job_code"]),
+      #               sheet_id: sheet.id
+      #             })
+      #           end
+      #         :error -> nil
+      #       end
+      #      end)
+      #     sheet = Sheets.get_sheet(sheet.id)
+      #     conn
+      #     |> put_status(:created)
+      #     |> put_resp_header("location", Routes.sheet_path(conn, :show, sheet))
+      #     |> render("show.json", sheet: sheet)
+      #   end
+      # else 
+      #   resp = %{errors: ["Not a worker!"]}
+      #   conn
+      #   |> put_resp_header("content-type", "application/json; charset=UTF-8")
+      #   |> send_resp(:not_acceptable, Jason.encode!(resp))
+      # end
     end
   # end
 
