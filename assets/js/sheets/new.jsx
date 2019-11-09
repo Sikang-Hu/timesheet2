@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { connect } from 'react-redux';
-import { Form, Button, Alert } from 'react-bootstrap';
+import { Form, Button, Alert, Col, Row} from 'react-bootstrap';
 import { Redirect } from 'react-router';
 
 import { submit_new_photo } from '../ajax';
@@ -38,7 +38,7 @@ class SheetsNew extends React.Component {
   }
 
   add_task() {
-
+    // if no tasks get the job code, 
   }
 
   jobcode_changed(index, ev) {
@@ -64,20 +64,35 @@ class SheetsNew extends React.Component {
       return <Redirect to={this.state.redirect} />;
     }
 
+    let tasks = <div></div>
+
     return (
       <div>
         <h1>New Sheet</h1>
         { error_msg }
-        <form>
-          Choose A Date:
-          <input type="date" name="date" onChange={(ev) => this.date_changed(ev)}/>
-        </form>
-        
-        <Form.Group controlId="submit">
-          <Button variant="primary"
-                  onClick={() => submit_new_sheet(this)}>
-            Submit New Sheet</Button>
-        </Form.Group>
+        <Row>
+          <Col >
+            <form>
+              Choose A Date:
+              <input type="date" name="date" onChange={(ev) => this.date_changed(ev)}/>
+            </form>
+          </Col>
+          <Col >
+            <Button variant="primary"
+                    onClick={() => add_task()}>
+              Add A Task</Button>
+          </Col>
+        </Row>
+        <Row>
+         {tasks}
+        </Row>
+        <Row>
+          <Form.Group controlId="submit">
+            <Button variant="primary"
+                    onClick={() => submit_new_sheet(this)}>
+              Submit New Sheet</Button>
+          </Form.Group>
+        </Row>
       </div>
     );
   }

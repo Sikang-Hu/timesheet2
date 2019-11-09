@@ -6,11 +6,17 @@ defmodule Timesheet2Web.SheetController do
 
   action_fallback Timesheet2Web.FallbackController
 
-  plug Timesheet2Web.Plugs.RequireAuth when action in [:create]
+  plug Timesheet2Web.Plugs.RequireAuth when action in [:index, :create, :show, :approve]
 
   def index(conn, _params) do
-    sheets = Sheets.list_sheets()
-    render(conn, "index.json", sheets: sheets)
+    user = conn.assigns[:current_user]
+    if user.manager_id do
+      sheets = Sheets.list_sheets_worker(user.id)
+      render(conn, "index.html", sheets: sheets)
+    else
+      sheets = Sheets.list_sheets_manager(user.id)
+      render(conn, "index.html", sheets: sheets)
+    end
   end
 
   def create(conn, %{"sheet" => sheet_params}) do
@@ -24,22 +30,17 @@ defmodule Timesheet2Web.SheetController do
 
   def show(conn, %{"id" => id}) do
     sheet = Sheets.get_sheet!(id)
+    |> IO.inspect
     render(conn, "show.json", sheet: sheet)
   end
 
-  def update(conn, %{"id" => id, "sheet" => sheet_params}) do
-    sheet = Sheets.get_sheet!(id)
-
-    with {:ok, %Sheet{} = sheet} <- Sheets.update_sheet(sheet, sheet_params) do
-      render(conn, "show.json", sheet: sheet)
-    end
-  end
-
-  def delete(conn, %{"id" => id}) do
-    sheet = Sheets.get_sheet!(id)
-
-    with {:ok, %Sheet{}} <- Sheets.delete_sheet(sheet) do
-      send_resp(conn, :no_content, "")
+  def approve(conn, %{"id" => id}) do
+    user = conn.assigns[:current_user]
+    if !user.manager_id do
+      sheet = Sheets.get_sheet!(id)
+      with {:ok, %Sheet{} = sheet} <- Sheets.update_sheet(sheet, %{approve: true}) do
+          render(conn, "show.json", sheet: sheet)
+      end
     end
   end
 end
