@@ -96,7 +96,7 @@ export function get_jobs() {
     .then((resp) => {
       console.log(resp);
       store.dispatch({
-        type: 'ADD_JOBS',
+        type: 'CHANGE_NEW_SHEET',
         data: resp.data,
       });
     });
