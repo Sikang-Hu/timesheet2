@@ -63,7 +63,7 @@ function SheetItem(props) {
 
 		  <td>
 		    <span>
-			    <Link to={path} activeClassName="active">Show</Link>
+			    <Link to={path} >Show</Link>
 		    </span>
 		  </td>
 		  <td>
