@@ -57,9 +57,9 @@ function SheetItem(props) {
 		);
 	return (  
 		<tr>
-		  <td>sheet.date</td>
-		  <td>sheet.approve</td>
-		  <td>sheet.worker.name</td>
+		  <td>{sheet.date}</td>
+		  <td>{sheet.approve}</td>
+		  <td>{sheet.worker.name}</td>
 
 		  <td>
 		    <span>
