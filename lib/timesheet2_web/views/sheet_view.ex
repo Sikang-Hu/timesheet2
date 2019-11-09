@@ -17,7 +17,7 @@ defmodule Timesheet2Web.SheetView do
     %{id: sheet.id,
       worker: UserView.render("user.json", %{user: sheet.worker}),
       approve: sheet.approve,
-      tasks: TaskView.render("index.json", %{tasks: sheet.tasks}),
+      tasks: TaskView.render("index.json", %{tasks: sheet.tasks})[:data],
       date: sheet.date}
   end
 end
