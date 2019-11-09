@@ -8,7 +8,7 @@ import { list_photos, approve_sheet } from '../ajax';
 
 import { Button } from 'react-bootstrap';
 
-import store from './store';
+import store from '../store';
 
 let SheetsList = connect(({sheets}) => ({sheets}))(({sheets}) => {
   if (sheets.size == 0) {
