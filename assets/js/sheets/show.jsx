@@ -79,4 +79,4 @@ function Task(probs) {
     );
 }
 
-export default connect(state2props)(PhotosShow);
+export default connect(state2props)(SheetsShow);
