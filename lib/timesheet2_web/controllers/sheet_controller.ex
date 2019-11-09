@@ -76,7 +76,7 @@ defmodule Timesheet2Web.SheetController do
    end
 
   def show(conn, %{"id" => id}) do
-    sheet = Sheets.get_sheet!(id)
+    sheet = Sheets.get_sheet(id)
     |> IO.inspect
     render(conn, "show.json", sheet: sheet)
   end
@@ -84,7 +84,7 @@ defmodule Timesheet2Web.SheetController do
   def approve(conn, %{"id" => id}) do
     user = conn.assigns[:current_user]
     if !user.manager_id do
-      sheet = Sheets.get_sheet!(id)
+      sheet = Sheets.get_sheet(id)
       with {:ok, %Sheet{} = sheet} <- Sheets.update_sheet(sheet, %{approve: true}) do
           render(conn, "show.json", sheet: sheet)
       end
