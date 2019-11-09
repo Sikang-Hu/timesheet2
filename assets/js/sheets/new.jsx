@@ -130,7 +130,7 @@ class SheetsNew extends React.Component {
           <Col md="3">
             <Button variant="primary"
                     onClick={() => this.delete_task()}>
-              Remove Last Task</Button>
+              Remove</Button>
           </Col>
         </Row>
         <Row>
@@ -165,11 +165,6 @@ function TaskForm(props) {
       <Form.Group as={Col} controlId="formGridZip" onChange={props.onChangeNote}>
         <Form.Label>Note</Form.Label>
         <Form.Control />
-      </Form.Group>
-      <Form.Group as={Col} controlId="formGridZip">
-        <Button variant="primary"
-                      onClick={props.onClick}>
-                Delete</Button>
       </Form.Group>
     </Form.Row>
     );
