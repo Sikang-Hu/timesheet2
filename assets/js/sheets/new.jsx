@@ -25,7 +25,6 @@ class SheetsNew extends React.Component {
   }
 
   changed(data) {
-    console.log(this.props);
     this.props.dispatch({
       type: 'CHANGE_NEW_SHEET',
       data: data,
@@ -38,24 +37,57 @@ class SheetsNew extends React.Component {
     this.changed({date: date});
   }
 
+  new_task() {
+    return {
+      job_code: "", 
+      spend_hours: 0,
+      note: ""
+    }
+  }
+
+
   add_task() {
-    
+    let tasks = this.props.tasks;
+    if (tasks.length < 8) {
+      tasks = tasks.concat([this.new_task()])
+    }
+    this.changed({tasks: tasks});
+  }
+
+  delete_task(index) {
+    let tasks = this.props.tasks.concat([]);
+    if (tasks.length > 0) {
+      tasks.splice(index, 1);
+    }
+    this.changed({tasks: tasks});
   }
 
   jobcode_changed(index, ev) {
-
+    let job_code = ev.target.value;
+    let tasks = this.props.tasks.concat([]);
+    if (tasks.length > 0) {
+      tasks[index] = Object.assign({}, tasks[index], {job_code: job_code});
+    this.changed({tasks: tasks});
   }
 
   hour_changed(index, ev) {
-
+    let spend_hours = ev.target.value;
+    let tasks = this.props.tasks.concat([]);
+    if (tasks.length > 0) {
+      tasks[index] = Object.assign({}, tasks[index], {spend_hours: spend_hours});
+    this.changed({tasks: tasks});
   }
 
   note_changed(index, ev) {
-
+    let note = ev.target.value;
+    let tasks = this.props.tasks.concat([]);
+    if (tasks.length > 0) {
+      tasks[index] = Object.assign({}, tasks[index], {note: note});
+    this.changed({tasks: tasks});
   }
 
   render() {
-    let {file, desc, errors, dispatch} = this.props;
+    let {date, tasks, errors, dispatch} = this.props;
     let error_msg = null;
     if (errors) {
       error_msg = <Alert variant="danger">{ errors }</Alert>;
@@ -65,7 +97,17 @@ class SheetsNew extends React.Component {
       return <Redirect to={this.state.redirect} />;
     }
 
-    let tasks = <div></div>
+    let task_forms = [];
+    for (let i = 0; i < tasks.length; i++) {
+      task_forms.push(<TaskForm 
+        key={"task_form " + i}
+        task={task}
+        onClick={() => this.delete_task(i)}
+        onChangeJob={(ev) => this.jobcode_changed(i, ev)}
+        onChangeHour={(ev) => this.hour_changed(i, ev)}
+        onChangeNote={(ev) => this.note_changed(i, ev)}
+        />);
+    }
 
     return (
       <div>
@@ -85,7 +127,7 @@ class SheetsNew extends React.Component {
           </Col>
         </Row>
         <Row>
-         {tasks}
+         {task_forms}
         </Row>
         <Row>
           <Form.Group controlId="submit">
@@ -97,6 +139,33 @@ class SheetsNew extends React.Component {
       </div>
     );
   }
+}
+
+function TaskForm(probs) {
+  return (
+    <Form.Row>
+      <Form.Group as={Col} controlId="formGridState">
+        <Form.Label>Job Code</Form.Label>
+        <Form.Control as="select" onChange={props.onChangeJob}>
+          <option>Choose...</option>
+          <option>...dsfs</option>
+        </Form.Control>
+      </Form.Group>
+      <Form.Group as={Col} controlId="formGridCity" onChange={props.onChangeHour}>
+        <Form.Label>Hours</Form.Label>
+        <Form.Control />
+      </Form.Group>
+      <Form.Group as={Col} controlId="formGridZip" onChange={props.onChangeNote}>
+        <Form.Label>Note</Form.Label>
+        <Form.Control />
+      </Form.Group>
+      <Form.Group as={Col} controlId="formGridZip">
+        <Button variant="primary"
+                      onClick={props.onClick}>
+                Delete</Button>
+      </Form.Group>
+    </Form.Row>
+    );
 }
 
 export default connect(state2props)(SheetsNew);
