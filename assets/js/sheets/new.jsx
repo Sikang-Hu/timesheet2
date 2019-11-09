@@ -54,11 +54,10 @@ class SheetsNew extends React.Component {
     this.changed({tasks: tasks});
   }
 
-  delete_task(index) {
+  delete_task() {
     let tasks = this.props.tasks.concat([]);
     if (tasks.length > 0) {
-      tasks.splice(index, 1);
-      console.log(index, tasks);
+      tasks.splice(tasks.length - 1, 1);
     }
     this.changed({tasks: tasks});
   }
@@ -106,7 +105,6 @@ class SheetsNew extends React.Component {
       task_forms.push(<TaskForm 
         key={"task_form " + i}
         task={tasks[i]}
-        onClick={() => this.delete_task(i)}
         onChangeJob={(ev) => this.jobcode_changed(i, ev)}
         onChangeHour={(ev) => this.hour_changed(i, ev)}
         onChangeNote={(ev) => this.note_changed(i, ev)}
@@ -118,16 +116,21 @@ class SheetsNew extends React.Component {
         <h1>New Sheet</h1>
         { error_msg }
         <Row>
-          <Col>
+          <Col md="6">
             <form>
               Choose A Date:
               <input type="date" name="date" onChange={(ev) => this.date_changed(ev)}/>
             </form>
           </Col>
-          <Col >
+          <Col md="3">
             <Button variant="primary"
                     onClick={() => this.add_task()}>
               Add A Task</Button>
+          </Col>
+          <Col md="3">
+            <Button variant="primary"
+                    onClick={() => this.delete_task()}>
+              Remove Last Task</Button>
           </Col>
         </Row>
         <Row>
@@ -146,7 +149,6 @@ class SheetsNew extends React.Component {
 }
 
 function TaskForm(props) {
-  console.log("Task", props);
   return (
     <Form.Row>
       <Form.Group as={Col} controlId="formGridState">
