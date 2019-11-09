@@ -26,6 +26,7 @@ defmodule Timesheet2Web.Router do
     resources "/sheets", SheetController, except: [:new, :edit]
     post "/sheets/approve", SheetController, :approve
     resources "/sessions", SessionController, only: [:create], singleton: true
+    get "/jobs", JobController, :index
   end
 
   scope "/", Timesheet2Web do
