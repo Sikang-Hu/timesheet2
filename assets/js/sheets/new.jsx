@@ -104,7 +104,7 @@ class SheetsNew extends React.Component {
     for (let i = 0; i < tasks.length; i++) {
       task_forms.push(<TaskForm 
         key={"task_form " + i}
-        task={task}
+        task={tasks[i]}
         onClick={() => this.delete_task(i)}
         onChangeJob={(ev) => this.jobcode_changed(i, ev)}
         onChangeHour={(ev) => this.hour_changed(i, ev)}
