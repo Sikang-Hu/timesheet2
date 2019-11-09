@@ -85,10 +85,12 @@ export function approve_sheet(id) {
 export function get_jobs() {
   get("/jobs")
     .then((resp) => {
-      console.log(list)
-    }
-      );
-    }
+      console.log(resp);
+      store.dispatch({
+        type: 'ADD_JOBS',
+        data: [resp.data],
+      });
+    });
 }
 
 export function submit_new_sheet(form) {
