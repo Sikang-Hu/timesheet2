@@ -90,7 +90,7 @@ class SheetsNew extends React.Component {
   }
 
   render() {
-    let {date, tasks, errors, dispatch} = this.props;
+    let {date, tasks, errors, jobs, dispatch} = this.props;
     let error_msg = null;
     if (errors) {
       error_msg = <Alert variant="danger">{ errors }</Alert>;
@@ -104,6 +104,7 @@ class SheetsNew extends React.Component {
     for (let i = 0; i < tasks.length; i++) {
       task_forms.push(<TaskForm 
         key={"task_form " + i}
+        jobs={jobs}
         task={tasks[i]}
         onChangeJob={(ev) => this.jobcode_changed(i, ev)}
         onChangeHour={(ev) => this.hour_changed(i, ev)}
@@ -149,13 +150,19 @@ class SheetsNew extends React.Component {
 }
 
 function TaskForm(props) {
+  let options = _.map(props.jobs, (job) => {return (
+      <option value={job.job_code}>{job_code.job}</option>
+    );})
+
   return (
     <Form.Row>
       <Form.Group as={Col} controlId="formGridState">
         <Form.Label>Job Code</Form.Label>
-        <Form.Control as="select" onChange={props.onChangeJob}>
-          <option value={"VAOR-01"}>VAOR-01</option>
-          <option value={"VAOR-02"}>VAOR-02</option>
+        <Form.Control as="select" 
+          onChange={props.onChangeJob}
+          defaultValue={probs.jobs[0].job_code}
+          >
+          {options}
         </Form.Control>
       </Form.Group>
       <Form.Group as={Col} controlId="formGridCity" onChange={props.onChangeHour}>

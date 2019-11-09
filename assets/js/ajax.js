@@ -97,7 +97,7 @@ export function get_jobs() {
       console.log(resp);
       store.dispatch({
         type: 'ADD_JOBS',
-        data: [resp.data],
+        data: resp.data,
       });
     });
 }
