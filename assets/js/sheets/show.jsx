@@ -52,7 +52,7 @@ function SheetsShow({id, sheet}) {
           {sheet.worker.name}
         </li>
       </ul>
-      <table class="table table-striped">
+      <table className="table table-striped">
         <thead>
           <tr>
             <th>Job Code</th>
