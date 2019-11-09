@@ -125,7 +125,7 @@ class SheetsNew extends React.Component {
           </Col>
           <Col >
             <Button variant="primary"
-                    onClick={() => add_task()}>
+                    onClick={() => this.add_task()}>
               Add A Task</Button>
           </Col>
         </Row>
