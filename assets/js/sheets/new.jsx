@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Form, Button, Alert, Col, Row} from 'react-bootstrap';
 import { Redirect } from 'react-router';
 
-import { submit_new_sheet } from '../ajax';
+import { submit_new_sheet, get_jobs } from '../ajax';
 
 function state2props(state) {
   return state.forms.new_sheet;
@@ -14,10 +14,10 @@ function state2props(state) {
 class SheetsNew extends React.Component {
   constructor (props) {
     super(props);
-
     this.state = {
       redirect: null,
     }
+    get_jobs();
   }
 
   redirect(path) {
