@@ -67,6 +67,7 @@ class SheetsNew extends React.Component {
     let tasks = this.props.tasks.concat([]);
     if (tasks.length > 0) {
       tasks[index] = Object.assign({}, tasks[index], {job_code: job_code});
+    }
     this.changed({tasks: tasks});
   }
 
@@ -75,6 +76,7 @@ class SheetsNew extends React.Component {
     let tasks = this.props.tasks.concat([]);
     if (tasks.length > 0) {
       tasks[index] = Object.assign({}, tasks[index], {spend_hours: spend_hours});
+    }
     this.changed({tasks: tasks});
   }
 
@@ -83,6 +85,7 @@ class SheetsNew extends React.Component {
     let tasks = this.props.tasks.concat([]);
     if (tasks.length > 0) {
       tasks[index] = Object.assign({}, tasks[index], {note: note});
+    }
     this.changed({tasks: tasks});
   }
 
