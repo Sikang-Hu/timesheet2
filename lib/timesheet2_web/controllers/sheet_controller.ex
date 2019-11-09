@@ -12,10 +12,10 @@ defmodule Timesheet2Web.SheetController do
     user = conn.assigns[:current_user]
     if user.manager_id do
       sheets = Sheets.list_sheets_worker(user.id)
-      render(conn, "index.html", sheets: sheets)
+      render(conn, "index.json", sheets: sheets)
     else
       sheets = Sheets.list_sheets_manager(user.id)
-      render(conn, "index.html", sheets: sheets)
+      render(conn, "index.json", sheets: sheets)
     end
   end
 
