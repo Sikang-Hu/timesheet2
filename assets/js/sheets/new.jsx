@@ -144,7 +144,7 @@ class SheetsNew extends React.Component {
   }
 }
 
-function TaskForm(probs) {
+function TaskForm(props) {
   return (
     <Form.Row>
       <Form.Group as={Col} controlId="formGridState">
