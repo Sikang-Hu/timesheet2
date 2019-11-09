@@ -30,12 +30,12 @@ defmodule Timesheet2Web.SheetController do
         {i, _} -> if i > 0, do: acc + i, else: acc
       end
      end)
-    if hours > 8 do {
+    if hours > 8 do 
       resp = %{errors: ["Cannot Exceed 8 Hours!"]}
       conn
       |> put_resp_header("content-type", "application/json; charset=UTF-8")
       |> send_resp(:not_acceptable, Jason.encode!(resp))
-    } else {
+   else 
       user = conn.assigns[:current_user]
       if user.manager_id do
         with {:ok, %Sheet{} = sheet} 
@@ -80,7 +80,6 @@ defmodule Timesheet2Web.SheetController do
         |> put_resp_header("content-type", "application/json; charset=UTF-8")
         |> send_resp(:not_acceptable, Jason.encode!(resp))
       end
-    }
   end
 
   def show(conn, %{"id" => id}) do
