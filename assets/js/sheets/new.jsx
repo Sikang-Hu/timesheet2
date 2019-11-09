@@ -17,7 +17,6 @@ class SheetsNew extends React.Component {
     this.state = {
       redirect: null,
     }
-    get_jobs();
   }
 
   redirect(path) {
@@ -91,6 +90,9 @@ class SheetsNew extends React.Component {
 
   render() {
     let {date, tasks, errors, jobs, dispatch} = this.props;
+    if (jobs.length == 0) {
+      get_jobs();
+    }
     let error_msg = null;
     if (errors) {
       error_msg = <Alert variant="danger">{ errors }</Alert>;
@@ -151,7 +153,7 @@ class SheetsNew extends React.Component {
 
 function TaskForm(props) {
   let options = _.map(props.jobs, (job) => {return (
-      <option value={job.job_code}>{job_code.job}</option>
+      <option value={job.job_code}>{job.job_code}</option>
     );})
 
   return (
