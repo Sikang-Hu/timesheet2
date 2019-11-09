@@ -35,11 +35,10 @@ defmodule Timesheet2Web.SheetController do
       conn
       |> put_resp_header("content-type", "application/json; charset=UTF-8")
       |> send_resp(:not_acceptable, Jason.encode!(resp))
-   else 
+    else 
       user = conn.assigns[:current_user]
       if user.manager_id do
-        with {:ok, %Sheet{} = sheet} 
-          <- Sheets.create_sheet(%{
+        with {:ok, %Sheet{} = sheet} <- Sheets.create_sheet(%{
             worker_id: current_user.id, 
             date: date,})
           tasks |> Enum.each(fn task -> 
@@ -61,7 +60,8 @@ defmodule Timesheet2Web.SheetController do
               :error -> nil
             end
             if task["spend_hours"] > 0 do
-              n = if task["note"] == "" do
+              n = 
+              if task["note"] == "" do
                 "N/A"
               else
                 task["note"]
@@ -80,6 +80,7 @@ defmodule Timesheet2Web.SheetController do
         |> put_resp_header("content-type", "application/json; charset=UTF-8")
         |> send_resp(:not_acceptable, Jason.encode!(resp))
       end
+    end
   end
 
   def show(conn, %{"id" => id}) do
