@@ -57,7 +57,6 @@ function sheets(st0 = new Map(), action) {
       for (let sheet of action.data) {
         st1.set(sheet.id, sheet);
       }
-      console.log(st1);
       return st1;
     default:
       return st0;

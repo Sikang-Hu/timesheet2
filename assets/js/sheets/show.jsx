@@ -7,7 +7,6 @@ import { get_sheet } from '../ajax';
 
 function state2props(state, props) {
   let id = parseInt(props.id);
-  console.log(state.sheets);
   return {id: id, sheet: state.sheets.get(id)};
 }
 
@@ -25,7 +24,7 @@ function SheetsShow({id, sheet}) {
     );
   }
 
-
+  console.log(sheet);
 
   let items = _.map(sheet.tasks, (task) => {
     return <Task 
