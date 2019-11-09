@@ -11,7 +11,9 @@ import { Button } from 'react-bootstrap';
 import store from '../store';
 
 let SheetsList = connect(({sheets}) => ({sheets}))(({sheets}) => {
-  list_sheets();
+  if (sheets.size == 0) {
+    list_sheets();
+  }
 
   let session = store.getState().session;
 
