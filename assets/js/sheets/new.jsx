@@ -160,7 +160,7 @@ function TaskForm(props) {
         <Form.Label>Job Code</Form.Label>
         <Form.Control as="select" 
           onChange={props.onChangeJob}
-          defaultValue={probs.jobs[0].job_code}
+          defaultValue={props.jobs[0].job_code}
           >
           {options}
         </Form.Control>
