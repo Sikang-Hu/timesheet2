@@ -63,9 +63,9 @@ export function list_sheets() {
       console.log("list_sheets", resp);
       if (resp.data.length != 0) {
           store.dispatch({
-            type: 'ADD_SHEETS',
-            data: resp.data,
-          });
+          type: 'ADD_SHEETS',
+          data: resp.data,
+        });
       }
     });
 }
