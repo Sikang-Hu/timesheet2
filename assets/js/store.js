@@ -13,7 +13,7 @@ function login(st0 = {email: "", password: "", errors: null}, action) {
   }
 }
 
-function new_sheet(st0 = {date: null, tasks: [], errors: null}, action) {
+function new_sheet(st0 = {date: null, tasks: [], errors: null, jobs: []}, action) {
   switch (action.type) {
     case 'CHANGE_NEW_SHEET':
       return Object.assign({}, st0, action.data);
