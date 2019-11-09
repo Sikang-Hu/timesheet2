@@ -11,6 +11,7 @@ defmodule Timesheet2Web.SheetView do
   end
 
   def render("sheet.json", %{sheet: sheet}) do
+    IO.inpsect(sheet)
     %{id: sheet.id,
       approve: sheet.approve,
       date: sheet.date}
