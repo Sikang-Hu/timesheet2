@@ -73,7 +73,7 @@ defmodule Timesheet2Web.SheetController do
         |> send_resp(:not_acceptable, Jason.encode!(resp))
       end
     end
-  end
+  # end
 
   def show(conn, %{"id" => id}) do
     sheet = Sheets.get_sheet!(id)
