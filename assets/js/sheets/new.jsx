@@ -153,7 +153,7 @@ class SheetsNew extends React.Component {
 
 function TaskForm(props) {
   let options = _.map(props.jobs, (job) => {return (
-      <option value={job.job_code}>{job.job_code}</option>
+      <option key={job_code} value={job.job_code}>{job.job_code}</option>
     );})
 
   return (

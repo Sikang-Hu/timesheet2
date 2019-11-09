@@ -40,7 +40,7 @@ function session(st0 = session0, action) {
     case 'LOG_IN':
       return action.data;
     case 'LOG_OUT':
-      return session0;
+      return null;
     default:
       return st0;
   }
@@ -64,9 +64,6 @@ function sheets(st0 = new Map(), action) {
   }
 }
 
-function jobs(st0 = [], action) {
-
-}
 
 function root_reducer(st0, action) {
   console.log("root reducer", st0, action);
