@@ -26,7 +26,7 @@ function SheetsShow({id, sheet}) {
 
 
 
-  let items = _.map([...sheet.tasks], ([_, task]) => {
+  let items = _.map(sheet.tasks, ([_, task]) => {
     return <Task 
       key={"Task " + task.id} 
       task={task} 
