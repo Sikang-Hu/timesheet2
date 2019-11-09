@@ -39,7 +39,7 @@ defmodule Timesheet2Web.SheetController do
       user = conn.assigns[:current_user]
       if user.manager_id do
         with {:ok, %Sheet{} = sheet} <- Sheets.create_sheet(%{
-            worker_id: current_user.id, 
+            worker_id: user.id, 
             date: date,}) do
           tasks |> Enum.each(fn task -> 
             case Integer.parse(task["spend_hours"], 10) do
