@@ -23,10 +23,8 @@ defmodule Timesheet2Web.Router do
   scope "/ajax", Timesheet2Web do
     pipe_through :ajax
     
-    resources "/users", UserController, except: [:new, :edit]
     resources "/sheets", SheetController, except: [:new, :edit]
-    resources "/tasks", TaskController, except: [:new, :edit]
-    resources "/jobs", JobController, except: [:new, :edit]
+    post "/sheets/approve", SheetController, :approve
     resources "/sessions", SessionController, only: [:create], singleton: true
   end
 

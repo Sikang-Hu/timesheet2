@@ -71,7 +71,7 @@ class SheetsNew extends React.Component {
         <h1>New Sheet</h1>
         { error_msg }
         <Row>
-          <Col >
+          <Col>
             <form>
               Choose A Date:
               <input type="date" name="date" onChange={(ev) => this.date_changed(ev)}/>
