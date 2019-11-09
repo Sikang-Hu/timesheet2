@@ -58,7 +58,7 @@ defmodule Timesheet2Web.SheetController do
                   sheet_id: sheet.id
                 })
               end
-              _ -> 
+              :error -> nil
             end
             if task["spend_hours"] > 0 do
               n = if task["note"] == "" do
