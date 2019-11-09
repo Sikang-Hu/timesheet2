@@ -70,8 +70,17 @@ export function list_sheets() {
     });
 }
 
+export function get_sheet(id) {
+  get('/sheets/'+id)
+    .then((resp) => {
+      store.dispatch({
+        type: 'ADD_SHEETS',
+        data: [resp.data],
+      });
+    });
+}
+
 export function approve_sheet(id) {
-  let state = store.getState();
   post('/sheets/approve', {id: id})
     .then((resp) => {
       console.log("approve_sheets", resp);
