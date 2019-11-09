@@ -59,7 +59,7 @@ function Page(props) {
         </Route>
 
         <Route exact path="/sheets">
-          <Index />
+          <SheetsList />
         </Route>
 
         <Route exact path="/sheets/:id" render={
