@@ -33,7 +33,7 @@ class SheetsNew extends React.Component {
 
   date_changed(ev) {
     let input = ev.target;
-    console.log(input);
+    console.log(input.value);
     let date  = null;
     this.changed({date: date});
   }
