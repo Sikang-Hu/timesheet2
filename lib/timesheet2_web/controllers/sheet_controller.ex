@@ -44,28 +44,20 @@ defmodule Timesheet2Web.SheetController do
           tasks |> Enum.each(fn task -> 
             case Integer.parse(task["spend_hours"], 10) do
               {i, _} -> 
-              if i > 0 do 
-                n = if task["note"] == "" do
-                  "N/A"
-                else
-                  task["note"]
+                if i > 0 do 
+                  n = if task["note"] == "" do
+                    "N/A"
+                  else
+                    task["note"]
+                  end
+                  Timesheet2.Tasks.create_task(%{
+                    spend_hours: i,
+                    note: n,
+                    job_id: Timesheet2.Jobs.get_job_id_by_jobcode(task["job_code"]),
+                    sheet_id: sheet.id
+                  })
                 end
-                Timesheet2.Tasks.create_task(%{
-                  spend_hours: i,
-                  note: n,
-                  job_id: Timesheet2.Jobs.get_job_id_by_jobcode(task["job_code"]),
-                  sheet_id: sheet.id
-                })
-              end
               :error -> nil
-            end
-            if task["spend_hours"] > 0 do
-              n = 
-              if task["note"] == "" do
-                "N/A"
-              else
-                task["note"]
-              end
             end
            end)
           sheet = Sheets.get_sheet(sheet.id)
