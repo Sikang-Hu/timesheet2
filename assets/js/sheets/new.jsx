@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Form, Button, Alert, Col, Row} from 'react-bootstrap';
 import { Redirect } from 'react-router';
 
-import { submit_new_photo } from '../ajax';
+import { submit_new_sheet } from '../ajax';
 
 function state2props(state) {
   return state.forms.new_sheet;
@@ -146,13 +146,14 @@ class SheetsNew extends React.Component {
 }
 
 function TaskForm(props) {
+  console.log("Task", props);
   return (
     <Form.Row>
       <Form.Group as={Col} controlId="formGridState">
         <Form.Label>Job Code</Form.Label>
         <Form.Control as="select" onChange={props.onChangeJob}>
-          <option>Choose...</option>
-          <option>...dsfs</option>
+          <option>VAOR-01</option>
+          <option>VAOR-02</option>
         </Form.Control>
       </Form.Group>
       <Form.Group as={Col} controlId="formGridCity" onChange={props.onChangeHour}>
