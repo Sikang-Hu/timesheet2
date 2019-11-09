@@ -61,10 +61,12 @@ export function list_sheets() {
   get('/sheets')
     .then((resp) => {
       console.log("list_sheets", resp);
-      store.dispatch({
-        type: 'ADD_SHEETS',
-        data: resp.data,
-      });
+      if (resp.data.length != 0) {
+          store.dispatch({
+            type: 'ADD_SHEETS',
+            data: resp.data,
+          });
+      }
     });
 }
 
@@ -78,6 +80,15 @@ export function approve_sheet(id) {
         data: [resp.data],
       });
     });
+}
+
+export function get_jobs() {
+  get("/jobs")
+    .then((resp) => {
+      console.log(list)
+    }
+      );
+    }
 }
 
 export function submit_new_sheet(form) {
@@ -109,3 +120,4 @@ export function submit_new_sheet(form) {
       }
     });
 }
+
