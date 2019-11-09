@@ -50,16 +50,16 @@ class SheetsNew extends React.Component {
     let tasks = this.props.tasks;
     if (tasks.length < 8) {
       tasks = tasks.concat([this.new_task()])
+      this.changed({tasks: tasks});
     }
-    this.changed({tasks: tasks});
   }
 
   delete_task() {
     let tasks = this.props.tasks.concat([]);
     if (tasks.length > 0) {
       tasks.splice(tasks.length - 1, 1);
+      this.changed({tasks: tasks});
     }
-    this.changed({tasks: tasks});
   }
 
   jobcode_changed(index, ev) {
@@ -154,8 +154,8 @@ function TaskForm(props) {
       <Form.Group as={Col} controlId="formGridState">
         <Form.Label>Job Code</Form.Label>
         <Form.Control as="select" onChange={props.onChangeJob}>
-          <option>VAOR-01</option>
-          <option>VAOR-02</option>
+          <option value={"VAOR-01"}>VAOR-01</option>
+          <option value={"VAOR-02"}>VAOR-02</option>
         </Form.Control>
       </Form.Group>
       <Form.Group as={Col} controlId="formGridCity" onChange={props.onChangeHour}>
