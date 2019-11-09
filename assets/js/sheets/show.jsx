@@ -72,7 +72,7 @@ function Task(probs) {
   let t = probs.task;
   return (
       <tr>
-        <td>{t.job.job_code}</td>
+        <td>{t.job_code}</td>
         <td>{t.spend_hours}</td>
         <td>{t.note}</td>
       </tr>
