@@ -9,7 +9,7 @@ import { submit_new_sheet, get_jobs } from '../ajax';
 
 function state2props(state) {
   let is_worker = state.session != null && !state.session.is_manager;
-  return _.assign(state.forms.new_sheet, {is_worker: is_worker});
+  return _.extend({is_worker: is_worker}, state.forms.new_sheet);
 }
 
 class SheetsNew extends React.Component {
@@ -90,6 +90,7 @@ class SheetsNew extends React.Component {
   }
 
   render() {
+    console.log("props123", this.props);
     if (!this.props.is_worker) {
       return <Redirect to={'/'} />;
     }

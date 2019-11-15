@@ -25,13 +25,6 @@ export default function init_page(root) {
 function Page(props) {
   let session = store.getState().session;
 
-  let ind = session == null ? (<div/>) : (
-      <Nav.Item>
-        <NavLink to="/sheets" exact activeClassName="active" className="nav-link">
-          All Timesheets
-        </NavLink>
-      </Nav.Item>
-  );
 
   return (
     <Router>
@@ -43,7 +36,6 @@ function Page(props) {
                 Timesheet
               </NavLink>
             </Nav.Item>
-            {ind}
             <NewSheet />
           </Nav>
         </Col>
@@ -79,15 +71,30 @@ function Page(props) {
 }
 
 let NewSheet = connect(({session}) => ({session}))(({session}) => {
-  if (session == null || session.is_manager) {
+  if (session == null) {
     return (<div/>);
+  } else if (session.is_manager) {
+    return (
+        <Nav.Item>
+          <NavLink to="/sheets" exact activeClassName="active" className="nav-link">
+            All Timesheets
+          </NavLink>
+        </Nav.Item>);
   } else {
     return (
+        <Nav>
+        <Nav.Item>
+          <NavLink to="/sheets" exact activeClassName="active" className="nav-link">
+            All Timesheets
+          </NavLink>
+        </Nav.Item>
         <Nav.Item>
           <NavLink to="/sheets/new" exact activeClassName="active" className="nav-link">
             New Timesheet
           </NavLink>
-        </Nav.Item>);
+        </Nav.Item>
+        </Nav>
+    );
   }
 });
 
