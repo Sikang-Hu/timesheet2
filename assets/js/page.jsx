@@ -8,6 +8,7 @@ import SheetsNew from './sheets/new';
 import SheetsShow from './sheets/show';
 import SheetsList from './sheets/index';
 import Login from './login';
+import Session from './session';
 
 import store from './store';
 
@@ -22,6 +23,16 @@ export default function init_page(root) {
 }
 
 function Page(props) {
+  let session = store.getState().session;
+
+  let ind = session == null ? (<div/>) : (
+      <Nav.Item>
+        <NavLink to="/sheets" exact activeClassName="active" className="nav-link">
+          All Timesheets
+        </NavLink>
+      </Nav.Item>
+  );
+
   return (
     <Router>
       <Navbar bg="dark" variant="dark">
@@ -32,16 +43,8 @@ function Page(props) {
                 Timesheet
               </NavLink>
             </Nav.Item>
-            <Nav.Item>
-              <NavLink to="/sheets" exact activeClassName="active" className="nav-link">
-                All Timesheets
-              </NavLink>
-            </Nav.Item>
-            <Nav.Item>
-              <NavLink to="/sheets/new" exact activeClassName="active" className="nav-link">
-                New Timesheet
-              </NavLink>
-            </Nav.Item>
+            {ind}
+            <NewSheet />
           </Nav>
         </Col>
         <Col md="4">
@@ -75,42 +78,17 @@ function Page(props) {
   );
 }
 
-// function Session(props) {
-//   return (
-//     <div></div>
-//     );
-// }
-
-let Session = connect(({session}) => ({session}))(({session, dispatch}) => {
-  function logout(ev) {
-    ev.preventDefault();
-    localStorage.removeItem('session');
-    dispatch({
-      type: 'LOG_OUT',
-    });
-  }
-
-  if (session) {
+let NewSheet = connect(({session}) => ({session}))(({session}) => {
+  if (session == null || session.is_manager) {
+    return (<div/>);
+  } else {
     return (
-      <Nav>
         <Nav.Item>
-          <p className="text-light py-2">User: {session.user_name}</p>
-        </Nav.Item>
-        <Nav.Item>
-          <a className="nav-link" href="#" onClick={logout}>Logout</a>
-        </Nav.Item>
-      </Nav>
-    );
-  }
-  else {
-    return (
-      <Nav>
-        <Nav.Item>
-          <NavLink to="/login" exact activeClassName="active" className="nav-link">
-            Login
+          <NavLink to="/sheets/new" exact activeClassName="active" className="nav-link">
+            New Timesheet
           </NavLink>
-        </Nav.Item>
-      </Nav>
-    );
+        </Nav.Item>);
   }
 });
+
+

@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Switch, Route, NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { Redirect } from 'react-router';
 
 import { list_sheets, approve_sheet } from '../ajax';
 
@@ -11,19 +12,23 @@ import { Button } from 'react-bootstrap';
 import store from '../store';
 
 let SheetsList = connect(({sheets}) => ({sheets}))(({sheets}) => {
-  if (sheets.size == 0) {
+	let session = store.getState().session;
+
+	if (session == null) {
+		return <Redirect to={'/'} />;
+	}
+
+
+  if (sheets.size === 0) {
     list_sheets();
   }
 
-  let session = store.getState().session;
-
-  let is_worker = session == null ? null : session.is_worker;
 
   let items = _.map([...sheets], ([_, sheet]) => {
     return <SheetItem 
     	key={sheet.id} 
     	sheet={sheet} 
-    	worker={is_worker}
+    	worker={!session.is_manager}
     	onClick={approve_sheet}
     	/>;
   });
@@ -50,7 +55,7 @@ let SheetsList = connect(({sheets}) => ({sheets}))(({sheets}) => {
 function SheetItem(props) {
 	let sheet = props.sheet;
 	let path = "/sheets/" + sheet.id;
-	let btn = (props.worker || sheet.approve) ? (<div></div>) : (
+	let btn = (props.worker || sheet.approve) ? (<div/>) : (
 		<Button variant="primary" onClick={() => props.onClick(sheet.id)}>
             Approve
           </Button>

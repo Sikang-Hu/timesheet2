@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+
 
 import { connect } from 'react-redux';
 import { Form, Button, Alert } from 'react-bootstrap';
@@ -59,6 +59,14 @@ class Login extends React.Component {
             Log in
           </Button>
         </Form.Group>
+        <div>
+          <p> Following account provided for demo, their passwords are all <strong>password1234</strong>. </p>
+          <p>Worker1: w1@timesheet.com supervised by Manager1</p>
+          <p>Worker2: w2@timesheet.com supervised by Manager2</p>
+          <p>Worker3: w3@timesheet.com supervised by Manager2</p>
+          <p>Manager1: m1@timesheet.com</p>
+          <p>Manager2: m2@timesheet.com</p>
+        </div>
       </div>
     );
   }

@@ -1,14 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 import { connect } from 'react-redux';
 import { Form, Button, Alert, Col, Row} from 'react-bootstrap';
 import { Redirect } from 'react-router';
+import _ from 'lodash';
 
 import { submit_new_sheet, get_jobs } from '../ajax';
 
 function state2props(state) {
-  return state.forms.new_sheet;
+  let is_worker = state.session != null && !state.session.is_manager;
+  return _.assign(state.forms.new_sheet, {is_worker: is_worker});
 }
 
 class SheetsNew extends React.Component {
@@ -89,8 +90,11 @@ class SheetsNew extends React.Component {
   }
 
   render() {
+    if (!this.props.is_worker) {
+      return <Redirect to={'/'} />;
+    }
     let {date, tasks, errors, jobs, dispatch} = this.props;
-    if (jobs.length == 0) {
+    if (jobs.length === 0) {
       get_jobs();
     }
     let error_msg = null;

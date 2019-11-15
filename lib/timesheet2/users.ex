@@ -45,6 +45,10 @@ defmodule Timesheet2.Users do
   end
 
   def get_user_by_email(email) do
+    query = from(u in User,
+      where: u.email == ^email,
+      preload: [:manager]
+    )
     Repo.get_by(User, email: email)
   end
 

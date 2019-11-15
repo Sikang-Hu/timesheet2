@@ -61,7 +61,7 @@ export function list_sheets() {
   get('/sheets')
     .then((resp) => {
       console.log("list_sheets", resp);
-      if (resp.data.length != 0) {
+      if (resp.data.length !== 0) {
           store.dispatch({
           type: 'ADD_SHEETS',
           data: resp.data,

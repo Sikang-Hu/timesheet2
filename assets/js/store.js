@@ -75,5 +75,5 @@ function root_reducer(st0, action) {
   return deepFreeze(reducer(st0, action));
 }
 
-let store = createStore(root_reducer);
+let store = createStore(root_reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 export default store;
